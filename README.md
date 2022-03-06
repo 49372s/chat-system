@@ -15,3 +15,11 @@
 $pdo = new PDO('mysql:host=[ここにSQLサーバーのアドレスを入れる];dbname=chat;charset=utf8','SQL接続用のユーザーネーム','パスワード');
 ?>
 ```
+### 以下のファイル
+> ・/config/database/update.php
+> ・/config/api/load.php
+> ・/chat/index.html
+上記にファイルに記述されている`$_SERVER['HTTPS']`の記述は一般的に使用する場合には不要になります。
+こちらが常軌を逸した仕様にしてるので()
+これを外さないと動かない場合があります。if文の中も消してください。
+また、update.phpにある`sys_loadavg`もレンタルサーバーでは動かない可能性があります。不要であれば削除してください(その際は/chat/index.html及び/config/api/post.jsも修正がいります)。
