@@ -1,0 +1,62 @@
+<?php
+include('../config/database/check.php');
+if($flug===0){
+    http_response_code(403);
+    header('Location: /login');
+    exit();
+}
+?>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>チャット | Easied Chat</title>
+  <?php if(!empty($_SERVER['HTTPS'])){
+    ?>
+  <link rel="stylesheet" type="text/css" href="/config/style/base.css?<?php echo(date('YmdHis'));?>">
+  <?php
+  }else{
+    ?>
+    <link rel="stylesheet" type="text/css" href="/config/style/legacy.css?<?php echo(date('YmdHis'));?>">
+    <?php
+    include($_SERVER['DOCUMENT_ROOT'].'/config/database/update.php');
+  }
+  ?>
+  <script src="/config/api/jquery.js"></script>
+  <script src="/config/define/main.js"></script>
+</head>
+<body>
+  <?php include('../config/template/header.php');?>
+  <div id="main">
+      <h1>チャット</h1>
+　　　　<form action="/config/api/post.php" method="post" id="chat-box">
+          <h2>自動更新</h2>
+          次の更新まで<span id="next-up"></span>秒<br>
+          <label for="i-msg">メッセージ</label>
+          <input type="text" name="msg" id="i-msg" autocomplete="off" required>
+          <input type="hidden" name="flug" value="1">
+          <input type="submit" value="送信">
+      </form>
+      <button onclick="move('/config/database/logout.php');">ログアウト</button><button onclick="update();">更新</button><button onclick="insertUrl()">リンク挿入</button><button onclick="insertBr();">改行</button>
+      <div class="chat" id="chat">
+        <?php include($_SERVER['DOCUMENT_ROOT'].'/config/api/load.php');?>
+      </div>
+      <div>
+          <h1>オンラインユーザー</h1>
+          <div id="online">
+            <?php include($_SERVER['DOCUMENT_ROOT'].'/config/api/online.php');?>
+          </div>
+          <h1>CPU使用率(1分間平均)</h1>
+          <div id="cpu">現在の環境では利用できません</div>
+      </div>
+  </div>
+  <?php include('../config/template/footer.php');
+  if(!empty($_SERVER['HTTPS'])){
+      echo('<script src="/config/api/post.js?'.date('YmdHis').'"></script>');
+  }
+  ?>
+  <script src="/config/api/post.js?'.date('YmdHis').'"></script>
+</body>
+</html>
