@@ -37,4 +37,4 @@ $pdo = new PDO('mysql:host=[ここにSQLサーバーのアドレスを入れる]
 ## 問い合わせ
 TwitterのDMにお願いします。
 
-https://www.twitter.com/ClockRBA
+https://www.twitter.com/radiate038
